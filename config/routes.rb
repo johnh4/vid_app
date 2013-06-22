@@ -1,4 +1,7 @@
 VidApp::Application.routes.draw do
+  resources :videos, only: [:index]
+
+  root to: "videos#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
