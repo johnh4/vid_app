@@ -6,7 +6,7 @@ def initialize
 end
 
 def get_youtube_id(sought)
-	vid = @youtube_client.videos_by(:query => sought)
+	vid = @youtube_client.videos_by(:query => sought, :categories => [:music])
 	return_vid = vid.videos.first.video_id.split(':').last
 	return_vid
 end

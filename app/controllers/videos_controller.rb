@@ -6,7 +6,7 @@ end
 
 def index
 	@vid = Video.new
-
+	@vids = Video.all
 end
 
 
