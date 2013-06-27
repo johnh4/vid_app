@@ -19,7 +19,6 @@ function loadAPIClientInterfaces() {
     handleAPILoaded();
     console.log("ran loadAPIClientInterfaces()");
   });
-  search();
 }
 
 function load() {

@@ -16,6 +16,8 @@ $(document).on('ajax:complete ready', function(){
     var id_arr;
 
     $('.yt_button').click(function(){
+    
+        console.log($('.yt_button').attr('yt_id'));
         if ($(this).attr('now_playing') == 'false'){
             //var song_id = $(this).attr('yt_id');
             //ytplayer.loadVideoById(song_id, 1, 'large');
@@ -77,6 +79,9 @@ $(document).on('ajax:complete ready', function(){
 
 });
 function loadVideo() {
+
+        search();
+        
         var select_box = document.getElementById("country_selection");
         var vid_ids = select_box.options[select_box.selectedIndex].value;
         console.log(vid_ids);

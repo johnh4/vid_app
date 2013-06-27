@@ -1,13 +1,22 @@
+var v_ids = new Array();
+
 // Once the api loads call enable the search box.
 function handleAPILoaded() {
   $('#search-button').attr('disabled', false);
+  search();
   console.log("ran handleAPILoaded()");
 }
 
 // Search for a given string.
 function search() {
+
+  loadVideo();
+
   console.log("started search()");
-  var q = $('#query').val();
+  //var q = $('#query').val();
+  var select_box = document.getElementById("country_selection");
+  var q = select_box.options[select_box.selectedIndex].innerHTML + " News & Politics";
+  console.log("q:" + q);
   var this_date = new Date();
   var yesterday = formatDate(this_date);
   console.log(yesterday);
@@ -35,7 +44,7 @@ function search() {
     var ids = items_arr['id'];
     console.log(items_arr);
     console.log(ids);
-    var v_ids = new Array();
+    v_ids = new Array();
     for(var i=0; i<items_arr.length; i++) {
       console.log(items_arr[i]);
       console.log(items_arr[i].id);
@@ -43,9 +52,19 @@ function search() {
       console.log(v_ids[i]);
     }
     console.log(v_ids);
+
+    function array_to_view() {
+      $(".yt_button").attr("yt_id", v_ids);
+      console.log(v_ids);
+      console.log($(".yt_button").attr("yt_id"));
+      console.log(v_ids);
+    }
+    array_to_view();
   });
-  console.log("finished search()");
+  console.log("finished search()");  
 }
+
+
 
 function getGMTOffset(localDate) {
     var positive = (localDate.getTimezoneOffset() > 0);
