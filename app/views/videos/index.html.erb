@@ -1,8 +1,9 @@
 <h1 id="title">GLOBAL NEWS: DEVELOPING</h1>
 
 <!-- move to controller -->
+<%= time_is = Time.now %>
 <%= date_today = Date.today.strftime("%B %d %Y") %>
-<% term = "news"+" #{date_today}" %>
+<% term = "News & Politics"+" #{date_today}" %>
 <% my_vids = @vid.get_youtube_id_array("florida #{term}") %>
 
 <%= button_tag "My video", class: "yt_button", list_position: "", yt_id: @vid.get_youtube_id_array("United States #{term}"), now_playing: false, type: "button" %>
