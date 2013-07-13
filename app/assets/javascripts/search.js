@@ -21,6 +21,7 @@ function search() {
   var yesterday = formatDate(this_date);
   console.log(yesterday);
 
+  //send request to youtube data api
   var request = gapi.client.youtube.search.list({
     q: q,
     part: 'id',
@@ -34,6 +35,7 @@ function search() {
   });
   console.log("in search(), after request");
 
+  //process the api's response
   request.execute(function(response) {
     var str = JSON.stringify(response.result);
     console.log(response.result);
@@ -53,6 +55,7 @@ function search() {
     }
     console.log(v_ids);
 
+    //send array to the view
     function array_to_view() {
       $(".yt_button").attr("yt_id", v_ids);
       console.log(v_ids);
