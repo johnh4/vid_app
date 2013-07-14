@@ -1,3 +1,4 @@
+/*
 function appendResults(text) {
   var results = document.getElementById('results');
   results.appendChild(document.createElement('P'));
@@ -14,15 +15,20 @@ function makeRequest() {
   //loadAPIClientInterfaces();
 }
 
+*/
 function loadAPIClientInterfaces() {
   gapi.client.load('youtube', 'v3', function() {
-    handleAPILoaded();
+    //handleAPILoaded();
     console.log("ran loadAPIClientInterfaces()");
   });
 }
 
 function load() {
   gapi.client.setApiKey('AIzaSyCGMWXYkfx9jKV9xjF86WsUuxCghuODyew');
-  gapi.client.load('urlshortener', 'v1', makeRequest);
-  loadAPIClientInterfaces();
+  gapi.client.load('youtube', 'v3', find_vids);
+
+  //gapi.client.load('urlshortener', 'v1', makeRequest);
+  //loadAPIClientInterfaces();
+  //search();
+  //loadVideo();
 }

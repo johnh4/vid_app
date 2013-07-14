@@ -17,16 +17,17 @@ $(document).on('ajax:complete ready', function(){
 
     $('.yt_button').click(function(){
     
+        //get array stored in view, play or pause video
         console.log($('.yt_button').attr('yt_id'));
         if ($(this).attr('now_playing') == 'false'){
             //var song_id = $(this).attr('yt_id');
             //ytplayer.loadVideoById(song_id, 1, 'large');
             var news_ids = $(this).attr('yt_id');
-            id_arr = news_ids.split(" ");
-            console.log(news_ids);
-            console.log(id_arr);
-            news_id = id_arr[0];
-            console.log(news_id);
+            id_arr = news_ids.split(",");
+            console.log("news_ids:" + news_ids);
+            console.log("id_arr: " + id_arr);
+            var news_id = id_arr[0];
+            console.log("news_id: " + news_id);
             ytplayer.loadVideoById(news_id, 1, 'large');
             $('.yt_button').each(function(){
                 if (news_ids == $(this).attr('yt_id')){
@@ -43,7 +44,8 @@ $(document).on('ajax:complete ready', function(){
             $(this).attr('now_playing', 'true');
         };
     });
-
+    
+    //play the next video
     $('.next_button').click(function(){
         if( (vid_index) < ($(this).attr('num_vids')-1) ) {
             vid_index++;
@@ -59,6 +61,7 @@ $(document).on('ajax:complete ready', function(){
         }
     });
 
+    //play the previous video
     $('.prev_button').click(function(){
         if( (vid_index) > 0 ) {
             vid_index--;
@@ -73,10 +76,6 @@ $(document).on('ajax:complete ready', function(){
             console.log(news_id);
         }
     });
-
-    
-
-
 });
 function loadVideo() {
 

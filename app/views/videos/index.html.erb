@@ -5,7 +5,7 @@
 <% term = "News & Politics" %>
 <% my_vids = @vid.get_youtube_id_array("florida #{term}") %>
 
-<%= button_tag "My video", class: "yt_button", list_position: "", yt_id: @vid.get_youtube_id_array("United States #{term}"), now_playing: false, type: "button" %>
+<%= button_tag "My video", class: "yt_button", list_position: "", yt_id: @vid.get_youtube_id_array("Phone #{term}"), now_playing: false, type: "button" %>
 
 <%= button_tag "Next video", class: "next_button", list_position:"", num_vids: my_vids.length, type: "button" %>
 
@@ -32,7 +32,7 @@
 <div id="buttons">
       <label> 
       	<input id="query" value='cats' type="text"/>
-      	<button id="search-button" onclick="search()">Search</button>
+      	<button id="search-button" onclick="find_vids()">Search</button>
       </label>
 </div>
 <div id="results">
