@@ -16,7 +16,7 @@
 <select id="country_selection" onchange="loadVideo();">
 	<% country = ["United States", "Canada", "Mexico"] %>
 	<% for i in 0...country.length %>
-		<option value= "<%= @vid.get_youtube_id_array("#{country[i]} #{term}").join(" ") %>" ><%= country[i] %></option>
+		<option value= "<%= country[i] %>" ><%= country[i] %></option>
 	<% end %>
 </select>
 

@@ -81,9 +81,10 @@ function loadVideo() {
 
         search();
         
+
         var select_box = document.getElementById("country_selection");
-        var vid_ids = select_box.options[select_box.selectedIndex].value;
-        console.log(vid_ids);
+        var country_val = select_box.options[select_box.selectedIndex].value;
+        console.log(country_val);
         var vid_arr = vid_ids.split(" ");
         vid_index = 0;
 

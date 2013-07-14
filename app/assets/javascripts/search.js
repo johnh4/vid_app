@@ -9,7 +9,11 @@ function handleAPILoaded() {
 }
 
 function find_vids() {
-  var q = $('#query').val();
+  var q = get_query();
+  var term = "News & Politics";
+  q = q + " " + term;
+  //var q = $('#query').val();
+  console.log("q: " + q);
   var req = gapi.client.youtube.search.list({
     q: q,
     part: 'snippet'
@@ -62,6 +66,15 @@ function array_to_view() {
   $(".yt_button").attr("yt_id", v_array);
   console.log("v_array from array_to_view: " + v_array);
   console.log("yt_button's yt_id attr after: " + $(".yt_button").attr("yt_id"));
+}
+
+function get_query() {
+  var select_box = document.getElementById("country_selection");
+  var country_val = select_box.options[select_box.selectedIndex].value;
+  console.log(country_val);
+  vid_index = 0;
+  var nation = country_val;
+  return nation;
 }
 // Search for a given string.
 function search() {
