@@ -4,6 +4,38 @@ function onYouTubePlayerReady(player_id){
     //ytplayer.addEventListener("onError", "errorFunction");
 }
 
+var vid_index = 0;
+var id_arr;
+var news_ids;
+var news_id;
+
+function switch_vids() {
+    find_vids();
+    //update_arr();
+}
+
+function load_and_play() {
+    console.log("Loading video in load_and_play.");
+    ytplayer.loadVideoById(news_id, 1, 'large');
+    ytplayer.playVideo();    
+    /*
+    if( ( $('yt_button').attr('now_playing') == 'true' ) || ( $('yt_button').attr('now_playing') == 'paused' ) ){
+        ytplayer.loadVideoById(news_id, 1, 'large');
+        ytplayer.playVideo();    
+    }
+    */
+}
+
+function update_arr() {
+    var news_ids = $('.yt_button').attr('yt_id');
+    console.log("yt_id in update_arr: " + $('.yt_button').attr('yt_id'));
+    id_arr = news_ids.split(",");
+    console.log("news_ids in update_arr:" + news_ids);
+    console.log("id_arr in update_arr: " + id_arr);
+    news_id = id_arr[0];
+    console.log("news_id in update_arr: " + news_id);
+}
+
 $(document).on('ajax:complete ready', function(){
 
     var params = { allowScriptAccess: "always" };
@@ -12,23 +44,28 @@ $(document).on('ajax:complete ready', function(){
     swfobject.embedSWF("http://www.youtube.com/apiplayer?enablejsapi=1&version=3&playerapiid=ytplayer",
                         "ytplayer_div", width, "500", "9", null, null, params, atts);
 
-    var vid_index = 0;
-    var id_arr;
+    
+
+    
 
     $('.yt_button').click(function(){
-    
+        
+        update_arr();
         //get array stored in view, play or pause video
-        console.log($('.yt_button').attr('yt_id'));
+        console.log(".click yt_id: " + $('.yt_button').attr('yt_id'));
         if ($(this).attr('now_playing') == 'false'){
-            //var song_id = $(this).attr('yt_id');
-            //ytplayer.loadVideoById(song_id, 1, 'large');
-            var news_ids = $(this).attr('yt_id');
-            id_arr = news_ids.split(",");
-            console.log("news_ids:" + news_ids);
-            console.log("id_arr: " + id_arr);
-            var news_id = id_arr[0];
-            console.log("news_id: " + news_id);
+            //var news_ids = $(this).attr('yt_id');
+            //id_arr = news_ids.split(",");
+            //console.log("news_ids:" + news_ids);
+            //console.log("id_arr: " + id_arr);
+            //var news_id = id_arr[0];
+            //console.log("news_id: " + news_id);
+            
+            console.log("id_arr in .click after update_arr:" + id_arr);
+            console.log("news_id in .click after update_arr:" + news_id);
             ytplayer.loadVideoById(news_id, 1, 'large');
+            $(this).attr('now_playing', 'true');
+            /*
             $('.yt_button').each(function(){
                 if (news_ids == $(this).attr('yt_id')){
                     $(this).attr('now_playing', 'true');
@@ -36,24 +73,27 @@ $(document).on('ajax:complete ready', function(){
                     $(this).attr('now_playing', 'false');
                 }
             });
+            */
         }else if ($(this).attr('now_playing') == 'true'){
             ytplayer.pauseVideo();
             $(this).attr('now_playing', 'paused');
         }else if ($(this).attr('now_playing') == 'paused'){
             ytplayer.playVideo();
             $(this).attr('now_playing', 'true');
+            console.log(".click yt_id in playVideo(): " + $('.yt_button').attr('yt_id'));
+            console.log("id_arr in playVideo(): " + id_arr);
         };
     });
     
     //play the next video
     $('.next_button').click(function(){
-        if( (vid_index) < ($(this).attr('num_vids')-1) ) {
+        if( (vid_index) < (id_arr.length-1) ) {
             vid_index++;
             news_id = id_arr[vid_index];
             ytplayer.loadVideoById(news_id, 1, 'large');
-            console.log(news_id);
+            console.log("news_id after .next_button: " + news_id);
         }
-        else if (vid_index == ($(this).attr('num_vids')-1) ) {
+        else if (vid_index == (id_arr.length-1) ) {
             vid_index = 0;
             news_id = id_arr[vid_index];
             ytplayer.loadVideoById(news_id, 1, 'large');
@@ -70,7 +110,7 @@ $(document).on('ajax:complete ready', function(){
             console.log(news_id);
         }
         else if (vid_index == 0 ) {
-            vid_index = $(this).attr('num_vids') - 1;
+            vid_index = id_arr.length - 1;
             news_id = id_arr[vid_index];
             ytplayer.loadVideoById(news_id, 1, 'large');
             console.log(news_id);
@@ -79,7 +119,7 @@ $(document).on('ajax:complete ready', function(){
 });
 function loadVideo() {
 
-        search();
+        //search();
         
 
         var select_box = document.getElementById("country_selection");

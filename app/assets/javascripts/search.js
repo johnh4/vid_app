@@ -12,20 +12,12 @@ function find_vids() {
   var q = get_query();
   var term = "News & Politics";
   q = q + " " + term;
-  //var q = $('#query').val();
   console.log("q: " + q);
   var req = gapi.client.youtube.search.list({
     q: q,
     part: 'snippet'
   });
 
-  /*
-  req.execute(function(response) {
-    var str = JSON.stringify(response.result);
-    $('#search-container').html('<pre>' + str + '</pre>');
-  });
-  */
-  //resp_to_arr(req);
   resp_to_arr(req);
   console.log("v_array: " + v_array);
   //array_to_view();
@@ -65,7 +57,9 @@ function array_to_view() {
   console.log("Putting array into view.");
   $(".yt_button").attr("yt_id", v_array);
   console.log("v_array from array_to_view: " + v_array);
-  console.log("yt_button's yt_id attr after: " + $(".yt_button").attr("yt_id"));
+  console.log("yt_id attr after, in array_to_view: " + $(".yt_button").attr("yt_id"));
+  update_arr();
+  load_and_play();
 }
 
 function get_query() {
@@ -74,6 +68,15 @@ function get_query() {
   console.log(country_val);
   vid_index = 0;
   var nation = country_val;
+
+  //plays video if the array is already populated
+  /*
+  if(v_array[0]) {
+    console.log("v_array[0]: " + v_array[0]);
+    ytplayer.loadVideoById(v_array[0], 1, 'large');
+    ytplayer.playVideo();
+  }
+  */
   return nation;
 }
 // Search for a given string.
