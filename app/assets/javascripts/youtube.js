@@ -117,6 +117,32 @@ $(document).on('ajax:complete ready', function(){
         }
     });
 });
+
+function change_continent() {
+    var test_box = document.getElementById("test");
+    remove_nodes(test_box);
+    sel_country();
+}
+
+function sel_country() {
+    var select_box = document.getElementById("continent_selection");
+    var cont_str = select_box.options[select_box.selectedIndex].value;
+    var test_box = document.getElementById("test");
+
+    //fills box with the continent's countries
+    var cont_array = cont_str.substr(1,cont_str.length-2).split('"').join("").split(",");
+    for (i=0; i< cont_array.length; i++) {
+        var opt = new Option(cont_array[i],cont_array[i]);
+        test_box.appendChild(opt);
+    }
+}
+
+function remove_nodes(el) {
+    while (el.hasChildNodes() ) {
+        el.removeChild(el.lastChild);
+    }
+}
+
 function loadVideo() {
 
         //search();

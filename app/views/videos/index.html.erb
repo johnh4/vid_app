@@ -13,18 +13,34 @@
 
 
 
+<select id="continent_selection" onchange="change_continent();">
+	<% @countries.each do |continent, countries| %>
+		<option value="<%= @countries[continent] %>"> <%= continent %> </option>
+	<% end %>
+</select>
+
+<select id="country_selection" onchange="switch_vids();">
+	<% country = ["United States", "Canada", "Mexico"] %>
+	<% for i in 0...country.length %>
+		<option value= "<%= country[i] %>" class="country_opts" ><%= country[i] %></option>
+	<% end %>
+</select>
+<select id="test"></select>
+<!--
 <select id="country_selection" onchange="switch_vids();">
 	<% country = ["United States", "Canada", "Mexico"] %>
 	<% for i in 0...country.length %>
 		<option value= "<%= country[i] %>" ><%= country[i] %></option>
 	<% end %>
 </select>
-
+-->
 <div id="youtube_player">
 	<div id="ytplayer_div"></div>
 </div>
 
-<div> my_vids.length: <%= my_vids.length %> </div>
+<div> my_vids.length: <%= my_vids.length %> <br>
+	countries: <%= @countries["North America"] %>
+</div>
 
 <!--
 <div id="login-container" class="pre-auth">This application requires access to your YouTube account.
