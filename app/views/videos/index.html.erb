@@ -15,7 +15,7 @@
 
 <select id="continent_selection" onchange="change_continent();">
 	<% @countries.each do |continent, countries| %>
-		<option value="<%= @countries[continent] %>"> <%= continent %> </option>
+		<option value="<%=@countries[continent]%>"><%= continent %></option>
 	<% end %>
 </select>
 
@@ -25,7 +25,10 @@
 		<option value= "<%= country[i] %>" class="country_opts" ><%= country[i] %></option>
 	<% end %>
 </select>
-<select id="test"></select>
+
+<%= button_tag "Load Video", class: "load_button", type: "button" %>
+
+<!--<select id="test"></select>-->
 <!--
 <select id="country_selection" onchange="switch_vids();">
 	<% country = ["United States", "Canada", "Mexico"] %>
@@ -58,6 +61,8 @@
 </div>
 <div id="search-container">
 </div>
+
+<div id="cont_box"></div>
 
 
 <%= debug(params) if Rails.env.development? %>
