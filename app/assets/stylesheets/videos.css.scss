@@ -10,12 +10,65 @@
 
 body {
 	margin: 0px 0px;
+  //background-color: grey;
+}
+
+#headline{
+  text-align: center;
+  //display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#headline #title {
+  display: inline;
+}
+
+#left_image {
+  //float: left;
+}
+
+#right_image {
+  float: right;
+  //clear: left;
+  //display: inline;
+}
+
+#buttons {
+  //display: inline;
+  //margin-right: 250px;
 }
 
 #title {
 	text-align: center;
 	font-family: "Times New Roman";
+  //color: white;
 }
+
+/********Navbar*************/
+
+#navbar_black {
+  height: 30px;
+  background-color: black;
+  color: white;
+}
+#navbar_white {
+  height: 30px;
+  background-color: white;
+  color: black;
+}
+
+#navbar_white a {
+  float: right;
+  text-decoration: none;
+  font-variant: small-caps;
+  font-weight: bold; 
+}
+
+#navbar_white a:visited {
+  color: black;
+}
+
+/***************************/
 
 /* mixins, variables, etc. */
 
@@ -36,3 +89,15 @@ $grayMediumLight: #eaeaea;
   margin-top: 45px;
   @include box_sizing;
 }
+
+#dump {
+  position: relative;
+}
+
+#ytplayer_div, #youtube_player {
+  position: relative;
+}
+
+#lower {
+  margin-top: 300px;
+}  

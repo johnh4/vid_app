@@ -1,5 +1,9 @@
 VidApp::Application.routes.draw do
+  get "static_pages/about"
+
   resources :videos, only: [:index]
+
+  match 'about' => "static_pages#about"
 
   root to: "videos#index"
   # The priority is based upon order of creation:

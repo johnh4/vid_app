@@ -1,32 +1,11 @@
-<h1 id="title">GLOBAL NEWS: DEVELOPING</h1>
-
+<div id="headline">
+	<!--  -->
+	<%#= image_tag "globe_black_and_white.png", id: "left_image", height: "45", width: "45" %>
+	<h1 id="title">GLOBAL NEWS: DEVELOPING</h1>
+	<%#= image_tag "globe_black_and_white.png", id: "right_image", height: "45", width: "45" %>
+</div>
 <!-- move to controller -->
 
-<% term = "News & Politics" %>
-<% my_vids = @vid.get_youtube_id_array("florida #{term}") %>
-
-<%= button_tag "My video", class: "yt_button", list_position: "", yt_id: @vid.get_youtube_id_array("Phone #{term}"), now_playing: false, type: "button" %>
-
-<%= button_tag "Next video", class: "next_button", list_position:"", num_vids: my_vids.length, type: "button" %>
-
-<%= button_tag "Previous video", class: "prev_button", list_position:"", num_vids: my_vids.length, type: "button" %>
-
-
-
-<select id="continent_selection" onchange="change_continent();">
-	<% @countries.each do |continent, countries| %>
-		<option value="<%=@countries[continent]%>"><%= continent %></option>
-	<% end %>
-</select>
-
-<select id="country_selection" onchange="switch_vids();">
-	<% country = ["United States", "Canada", "Mexico"] %>
-	<% for i in 0...country.length %>
-		<option value= "<%= country[i] %>" class="country_opts" ><%= country[i] %></option>
-	<% end %>
-</select>
-
-<%= button_tag "Load Video", class: "load_button", type: "button" %>
 
 <!--<select id="test"></select>-->
 <!--
@@ -39,30 +18,78 @@
 -->
 <div id="youtube_player">
 	<div id="ytplayer_div"></div>
+	<br>
 </div>
+<div id="buttons">
+	<% term = "News & Politics" %>
+	<% my_vids = @vid.get_youtube_id_array("florida #{term}") %>
 
-<div> my_vids.length: <%= my_vids.length %> <br>
+	<%= button_tag "Pause/Resume", class: "yt_button", list_position: "", yt_id: @vid.get_youtube_id_array("Phone #{term}"), now_playing: false, type: "button" %>
+
+	<%= button_tag "Next Video", class: "next_button", list_position:"", num_vids: my_vids.length, type: "button" %>
+
+	<%= button_tag "Previous Video", class: "prev_button", list_position:"", num_vids: my_vids.length, type: "button" %>
+
+
+
+	<select id="continent_selection" onload="change_continent()" onchange="change_continent();">
+		<% @countries.each do |continent, countries| %>
+			<% if continent == "North America" %>
+				<option value="<%=@countries[continent]%>" selected=><%= continent %></option>
+			<% else %>
+				<option value="<%=@countries[continent]%>"><%= continent %></option>
+			<% end %>
+			
+		<% end %>
+	</select>
+
+	<select id="country_selection" onchange="switch_vids();">
+		<% country = ["United States", "Canada", "Mexico"] %>
+		<% for i in 0...country.length %>
+			<option value= "<%= country[i] %>" class="country_opts" ><%= country[i] %></option>
+		<% end %>
+	</select>
+
+	<%= button_tag "Load Video", class: "load_button", type: "button" %>
+
+	<%= button_tag "Alter Player", class: "alter_button", type: "button" %>
+
+</div>
+<!--
+<h3 id="title_el"></h3>
+<p id="description_el"></p>
+-->
+
+<!--
+<div id="dump"> my_vids.length: <%= my_vids.length %> <br>
 	countries: <%= @countries["North America"] %>
 </div>
+-->
 
 <!--
 <div id="login-container" class="pre-auth">This application requires access to your YouTube account.
   Please <a href="#" id="login-link">authorize</a> to continue.
 </div>
 -->
+<!--
 <div id="buttons">
       <label> 
       	<input id="query" value='cats' type="text"/>
       	<button id="search-button" onclick="find_vids()">Search</button>
       </label>
 </div>
-<div id="results">
+-->
 
-</div>
-<div id="search-container">
-</div>
+
+
 
 <div id="cont_box"></div>
-
-
-<%= debug(params) if Rails.env.development? %>
+<div id="lower">
+	<div id="search-container">
+	</div>
+	<div id="results">
+	</div>
+	<div id="debug">
+		<%= debug(params) if Rails.env.development? %>
+	</div>
+</div>

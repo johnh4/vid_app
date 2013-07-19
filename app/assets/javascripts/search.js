@@ -1,21 +1,31 @@
 var v_ids = new Array();
 var v_array = new Array();
+var titles = new Array(),
+    descriptions = new Array();
 
 // Once the api loads call enable the search box.
 function handleAPILoaded() {
   $('#search-button').attr('disabled', false);
-  //search();
   console.log("ran handleAPILoaded()");
 }
 
 function find_vids() {
+  //change_continent();
   var q = get_query();
   var term = "News & Politics";
   q = q + " " + term;
   console.log("q: " + q);
+  var this_date = new Date();
+  var yesterday = formatDate(this_date);
+  console.log("yesterday: " + yesterday);
+
   var req = gapi.client.youtube.search.list({
     q: q,
+    //publishedAfter: yesterday,
+    //videoCategoryId: "News & Politics",
     part: 'snippet'
+    //videoDefinition: "high"
+    //videoEmbeddable: "true"
   });
 
   resp_to_arr(req);
@@ -26,28 +36,35 @@ function find_vids() {
 function resp_to_arr(req) {
   console.log("v_array at beginning of resp_to_arr: " + v_array);
   req.execute(function(response) {
+    //var real = response.result;
     var str = JSON.stringify(response.result);
     console.log(response.result);
     var res = response.result;
     $('#search-container').html('<pre>' + str + '</pre>');
+    //$('#search-container').html('<pre>' + response.result + '</pre>');
+    //console.log("real: " + real);
 
     var items_arr = res['items'];
     var ids = items_arr['id'];
+    //var title = items_arr['snippet'].title;
     console.log("items_arr: " + items_arr);
     console.log("ids: " + ids);
     var idsres = res.items[0].id;
     console.log("idsres: " + idsres);
     v_ids = new Array();
+    titles = new Array();
+    descriptions = new Array();
+    //get video id, title, and description from the response.
     for(var i=0; i<items_arr.length; i++) {
-      //console.log(items_arr[i]);
-      //console.log(items_arr[i].id);
       v_ids[i] = items_arr[i].id.videoId;
-      //console.log(v_ids[i]);
+      titles[i] = items_arr[i].snippet.title;
+      descriptions[i] = items_arr[i].snippet.description;
     }
+    console.log("titles: " + titles);
     console.log("v_ids: " + v_ids);
+    console.log("descriptions: " + descriptions);
     v_array = v_ids;
     console.log("v_array at end of resp_to_arr: " + v_array);
-    //return v_ids;
     array_to_view();
   });
 }
@@ -69,71 +86,8 @@ function get_query() {
   vid_index = 0;
   var nation = country_val;
 
-  //plays video if the array is already populated
-  /*
-  if(v_array[0]) {
-    console.log("v_array[0]: " + v_array[0]);
-    ytplayer.loadVideoById(v_array[0], 1, 'large');
-    ytplayer.playVideo();
-  }
-  */
   return nation;
 }
-// Search for a given string.
-function search() {
-
-  loadVideo();
-
-  //get country to search for from selection box
-  console.log("started search()");
-  //var q = $('#query').val();
-  var select_box = document.getElementById("country_selection");
-  var q = select_box.options[select_box.selectedIndex].innerHTML + " News & Politics";
-  console.log("q:" + q);
-  var this_date = new Date();
-  var yesterday = formatDate(this_date);
-  console.log(yesterday);
-
-  //send search request to youtube data api
-  var request = gapi.client.youtube.search.list({
-    q: q,
-    part: 'id',
-    publishedAfter: yesterday,
-    maxResults: 10,
-    type: "video",
-    videoCategoryId: "News & Politics",
-    videoDuration: "long",
-    videoDefinition: "high",
-    videoEmbeddable: "true"
-  });
-  console.log("in search(), after request");
-
-  //process the api's response, into an array of video ids
-  request.execute(function(response) {
-    var str = JSON.stringify(response.result);
-    console.log(response.result);
-    var res = response.result;
-    $('#search-container').html('<pre>' + str + '</pre>');
-
-    var items_arr = res['items'];
-    var ids = items_arr['id'];
-    console.log(items_arr);
-    console.log(ids);
-    v_ids = new Array();
-    for(var i=0; i<items_arr.length; i++) {
-      console.log(items_arr[i]);
-      console.log(items_arr[i].id);
-      v_ids[i] = items_arr[i].id.videoId;
-      console.log(v_ids[i]);
-    }
-    console.log(v_ids);
-
-    //send array to the view
-    array_to_view();
-  });
-  console.log("finished search()");  
-}
-
 
 /*************TIME FUNCTIONS *************************/
 function getGMTOffset(localDate) {

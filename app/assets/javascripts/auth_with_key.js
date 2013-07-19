@@ -25,7 +25,7 @@ function loadAPIClientInterfaces() {
 
 function load() {
   gapi.client.setApiKey('AIzaSyCGMWXYkfx9jKV9xjF86WsUuxCghuODyew');
-  gapi.client.load('youtube', 'v3', find_vids);
+  gapi.client.load('youtube', 'v3', load_initial);
 
   //gapi.client.load('urlshortener', 'v1', makeRequest);
   //loadAPIClientInterfaces();

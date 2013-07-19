@@ -8,23 +8,30 @@ var vid_index = 0;
 var id_arr;
 var news_ids;
 var news_id;
+var vid_title,
+    vid_description;
 
 function switch_vids() {
     find_vids();
-    //update_arr();
 }
 
+//jQuery(document).ready(function($){
+    function set_title_and_desc() {
+        //vid_title = getElementById('title_el');
+        //vid_description = getElementById('description_el');
+        //vid_title.innerHTML = titles[vid_index];
+        //vid_description.innerHTML = descriptions[vid_index];
+    
+        $('#title_el').html('<h4>' + titles[vid_index] + '</h4>');
+        $('#description_el').html('<p>' + descriptions[vid_index] + '</p>');
+    }
+//});
 function load_and_play() {
     console.log("Loading video in load_and_play.");
     ytplayer.loadVideoById(news_id, 1, 'large');
     ytplayer.playVideo();
     $('.yt_button').attr('now_playing', 'true');
-    /*
-    if( ( $('yt_button').attr('now_playing') == 'true' ) || ( $('yt_button').attr('now_playing') == 'paused' ) ){
-        ytplayer.loadVideoById(news_id, 1, 'large');
-        ytplayer.playVideo();    
-    }
-    */
+    set_title_and_desc();
 }
 
 function update_arr() {
@@ -55,27 +62,11 @@ $(document).on('ajax:complete ready', function(){
         update_arr();
         //get array stored in view, play or pause video
         console.log(".click yt_id: " + $('.yt_button').attr('yt_id'));
-        if ($(this).attr('now_playing') == 'false'){
-            //var news_ids = $(this).attr('yt_id');
-            //id_arr = news_ids.split(",");
-            //console.log("news_ids:" + news_ids);
-            //console.log("id_arr: " + id_arr);
-            //var news_id = id_arr[0];
-            //console.log("news_id: " + news_id);
-            
+        if ($(this).attr('now_playing') == 'false'){            
             console.log("id_arr in .click after update_arr:" + id_arr);
             console.log("news_id in .click after update_arr:" + news_id);
             ytplayer.loadVideoById(news_id, 1, 'large');
             $(this).attr('now_playing', 'true');
-            /*
-            $('.yt_button').each(function(){
-                if (news_ids == $(this).attr('yt_id')){
-                    $(this).attr('now_playing', 'true');
-                }else{
-                    $(this).attr('now_playing', 'false');
-                }
-            });
-            */
         }else if ($(this).attr('now_playing') == 'true'){
             ytplayer.pauseVideo();
             $(this).attr('now_playing', 'paused');
@@ -101,6 +92,7 @@ $(document).on('ajax:complete ready', function(){
             ytplayer.loadVideoById(news_id, 1, 'large');
             console.log(news_id);
         }
+    set_title_and_desc();
     });
 
     //play the previous video
@@ -117,18 +109,20 @@ $(document).on('ajax:complete ready', function(){
             ytplayer.loadVideoById(news_id, 1, 'large');
             console.log(news_id);
         }
+    set_title_and_desc();
     });
 });
 
 function change_continent() {
-    //var test_box = document.getElementById("test");
     var country_box = document.getElementById("country_selection");
-    //remove_nodes(test_box);
     remove_nodes(country_box);
     sel_country();
     //selectItemByValue(test_box, "United States");
 }
-
+function load_initial() {
+    change_continent();
+    find_vids();
+}
 function sel_country() {
     var select_box = document.getElementById("continent_selection");
     var cont_str = select_box.options[select_box.selectedIndex].value;
@@ -139,10 +133,8 @@ function sel_country() {
     var cont_array = cont_str.substr(1,cont_str.length-2).split('"').join("").split(",");
     for (i=0; i< cont_array.length; i++) {
         var opt;        
-        if(cont_array[i]=="United States") {
+        if(cont_array[i]==" United States") {
             opt = new Option(cont_array[i],cont_array[i], true, true);
-            var text = document.createTextNode("HI");
-            cont.appendChild(text);
         }
         else {
             opt = new Option(cont_array[i],cont_array[i]);
@@ -166,30 +158,4 @@ function selectItemByValue(elmnt, value){
         console.log("selected index triggered by US.");
       }
     }
-}
-function loadVideo() {
-
-        //search();
-        
-
-        var select_box = document.getElementById("country_selection");
-        var country_val = select_box.options[select_box.selectedIndex].value;
-        console.log(country_val);
-        var vid_arr = vid_ids.split(" ");
-        vid_index = 0;
-
-        //id_arr = vid_ids.split(" ");
-        //console.log(vid_ids);
-        var opt_id = vid_arr[0];
-        console.log(opt_id);
-        ytplayer.loadVideoById(opt_id, 1, 'large');
-
-        //document.getElementsByClassName('yt_button').yt_id = ' @vid.get_youtube_id_array("'+country_name+' music lil wayne") ';
-        //console.log(document.getElementsByClassName('yt_button').yt_id);
-        //var news_ids = $('.yt_button').attr('yt_id');;
-        //id_arr = news_ids.split(" ");
-        //console.log(id_arr);
-        //news_id = id_arr[0];
-        //console.log(news_id);
-        //ytplayer.loadVideoById(news_id, 1, 'large');
 }
